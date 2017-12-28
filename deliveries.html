@@ -1,0 +1,200 @@
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- <link rel="stylesheet" type="text/css" href="https://docucdn-a.akamaihd.net/olive/17.4.0/css/olive.min.css"/> -->
+  <style>
+    @font-face {
+      font-family:'Maven Pro';
+      src: url(fonts/maven_pro_regular.eot?#iefix) format("embedded-opentype"), url(fonts/maven_pro_regular.ttf) format("truetype"), url(fonts/maven_pro_regular.woff) format("woff"), url(fonts/maven_pro_regular.svg#maven_pro_regular) format("svg");
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family:'Maven Pro';
+      src: url(fonts/maven_pro_bold.eot?#iefix) format("embedded-opentype"),url(fonts/maven_pro_bold.ttf) format("truetype"),url(fonts/mavenpro-bold-webfont.woff) format("woff"),url(fonts/maven_pro_bold.svg#maven_pro_bold) format("svg");
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family:'Maven Pro';
+      src: url(fonts/maven_pro_bold.eot?#iefix) format("embedded-opentype"),url(fonts/maven_pro_bold.ttf) format("truetype"),url(fonts/mavenpro-bold-webfont.woff) format("woff"),url(fonts/maven_pro_bold.svg#maven_pro_bold) format("svg");
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family:'Maven Pro';
+      src: url(fonts/maven_pro_light.eot?#iefix) format("embedded-opentype"),url(fonts/maven_pro_light.ttf) format("truetype"),url(fonts/mavenprolight300_regular-webfont.woff) format("woff"),url(fonts/maven_pro_light.svg#maven_pro_light) format("svg");
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    * {
+        -webkit-transition: all 0.3s ease-in-out;
+           -moz-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+
+        box-sizing: border-box;
+    }
+
+    body {
+      font-family:"Maven Pro";
+      /*font-weight: bold;*/
+      /*background-color: #DEDEDE;*/
+      /*background-color: #45BBD1;*/
+      background-color: #0CA7D3;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    article {
+      padding: 50px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .basket {
+      margin: auto;
+      padding: 65px 25px;
+      /*width: 95%;*/
+      min-width: 900px;
+      /*background-color: #45BBD1;*/
+      white-space: nowrap;
+      /*overflow: hidden;*/
+      /*-webkit-filter: drop-shadow(2px 4px 4px #888);
+      filter: drop-shadow(2px 4px 4px #888);*/
+      text-align: center;
+
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .basket:not(:last-of-type) {
+      border-bottom: 1px solid #038FB7;
+    }
+    .basket .main {
+      min-width: 70%;
+      width: 100%;
+    }
+    .basket .sub_info {
+      /*min-width: 30%;*/
+      height: 100%;
+      padding: 0 20px;
+      /*background-color: #038FB7;*/
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .title {
+      font-family: Helvetica;
+      font-weight: 300;
+      font-size: 28px;
+      color: #444;
+      /*background-color: #E4E4E4;*/
+      /*margin-right: 8%;*/
+    }
+    .numbers {
+      font-size: 70px;
+      /*margin-left: 8%;*/
+      font-weight: 700;
+      color: #E4E4E4;
+    }
+
+    .sub_info .title {
+      font-size: 18px;
+      color: #038FB7;
+    }
+    .sub_info .numbers {
+      font-size: 36px;
+      font-weight: 400;
+      color: #026682;
+    }
+
+    .text-right {
+      /*align-self: flex-end;*/
+      text-align: right;
+    }
+    .text-left {
+      /*align-self: flex-start;*/
+      text-align: left;
+    }
+    .basket .main.text-left {
+      padding-left: 20px;
+      border-left: 1px solid #E4E4E4;
+    }
+    .basket .main.text-right {
+      padding-right: 20px;
+      border-right: 1px solid #E4E4E4;
+    }
+  </style>
+
+  <script src="js/jquery-1.12.3.min.js"></script>
+</head>
+<body>
+
+  <article>
+    <div class="basket basket_title">
+      <div class="main">
+        <div id="totalDocsDelivered" class="numbers"></div>
+        <div class="title">Envelopes Delivered</div>
+      </div>
+    </div>
+    <div class="basket">
+      <div class="main text-right">
+        <div class="title">Kilometers Traveled</div>
+        <div id="totalKilometers" class="numbers"></div>
+      </div>
+      <div class="sub_info sun text-left">
+        <div id="pctProximaCentauri" class="numbers"></div>
+        <div class="title">of the way to Proxima Centauri</div>
+      </div>
+    </div>
+  </article>
+</body>
+
+<script type='text/javascript'>
+  v = 950000000
+  kmpp = 677.7
+  datapull = new Date('2017-12-28')
+  today = new Date()
+  hours=(today-datapull)/3600000
+  r = 0.0108
+  dwt = new Array( 0.2,1.1,1.4,1.3,1.3,1.2,0.4 )
+  hwt = new Array( 0.1,0.1,0.1,0.1,0.2,0.4,0.8,1.3,1.7,1.9,2,2.1,2.2,2.3,2.1,1.7,1.4,1.1,0.8,0.6,0.5,0.3,0.2,0.1 )
+  while (datapull<today) {
+  v = v+3600000*r*dwt[datapull.getDay()]*hwt[datapull.getHours()]
+  datapull=new Date(datapull.getTime()+3600000)
+  }
+  v=Math.round(v+(hours%1)*3600000*r*dwt[today.getDay()]*hwt[today.getHours()])
+  km=Math.round(v*kmpp)
+
+  function GetClock() {
+    today=new Date()
+    L = Math.exp(-r*dwt[today.getDay()]*hwt[today.getHours()])
+    k = 0
+    p = 1
+    while (p > L) {
+    k = k+1
+    u = Math.random()
+    p = p*u
+    }
+    v=v+k-1
+    km=km+Math.round((kmpp*Math.random()*2)*(k-1))
+    pp=pp+Math.round((ppd*Math.random()*2)*(k-1))
+
+    $("#totalDocsDelivered").html(numberWithCommas(v).toString());
+    $("#totalKilometers").html(numberWithCommas(km).toString());
+    $("#pctProximaCentauri").html((Math.round(km/40000000000)/10).toString()+'%');
+  }
+  // window.onload=GetClock
+  setInterval('GetClock()', 30);
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+</script>
+</html>
